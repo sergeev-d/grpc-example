@@ -1,1 +1,1 @@
-# grpc-example
+# grpc-service

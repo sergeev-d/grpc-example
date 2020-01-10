@@ -1,3 +1,7 @@
+.idea
+.gradle
+grpc-service.iml
+gradle
 # Compiled class file
 *.class
 
