@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.grpc.service.common.v1;
+
+enum NetworkType {
+    UNKNOWN_NETWORK_TYPE = 0;
+    GSM = 1;
+    Email = 2;
+    SIP = 3;
+}
+
+enum TransportType {
+    UNKNOWN_TRANSPORT_TYPE = 0;
+    SMS = 1;
+    Mail = 2;
+}
+
+enum MessagePriorityType {
+    UNKNOWN_MESSAGE_PRIORITY_TYPE = 0;
+    LOW = 1;
+    NORMAL = 2;
+    HIGH = 3;
+}
+
+message Address {
+    NetworkType network_type = 1;
+    string address = 2;
+}
+
+message MessageAttachment {
+    string name = 1;
+    oneof payload {
+        string text = 2;
+        string reference = 3;
+    }
+
+}

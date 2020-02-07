@@ -1,1 +1,1 @@
-# grpc-service
+# grpc-smpp-service

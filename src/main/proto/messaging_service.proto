@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+//option objc_class_prefix = 36;
+option java_outer_classname = "MessagingServiceProto";
+
+import "common.proto";
+import "google/protobuf/timestamp.proto";
+
+package com.grpc.service.messaging.v1;
+
+// In proto3, all fields are "optional". https://qiita.com/shaching/items/3bbd3e31c4b42e92555f
+
+message SmppMessageReq {
+    com.grpc.service.common.v1.Address source_address = 1;
+    repeated com.grpc.service.common.v1.Address destination_address = 2;
+    string text = 3;
+    com.grpc.service.common.v1.MessagePriorityType message_priority_type = 4;
+    google.protobuf.Timestamp start_datetime = 5; //https://stackoverflow.com/questions/3574716/date-and-time-type-for-use-with-protobuf
+    google.protobuf.Timestamp stop_datetime = 6;
+    string encoding = 7;
+    map<string, string> specific_params = 8;
+}
+
+message SmppMessageResp {
+    string message = 1;
+}
+
+message SmtpMessageReq {
+    com.grpc.service.common.v1.Address source_address = 1;
+    repeated com.grpc.service.common.v1.Address destination_address = 2;
+    string subject = 3;
+    repeated com.grpc.service.common.v1.MessageAttachment message_attachment = 4;
+    google.protobuf.Timestamp start_datetime = 5; //https://stackoverflow.com/questions/3574716/date-and-time-type-for-use-with-protobuf
+    google.protobuf.Timestamp stop_datetime = 6;
+    map<string, string> specific_params = 7;
+}
+
+message SmtpMessageResp {
+    string message = 1;
+}
+
+service MessagingService {
+    rpc SendSMS (SmppMessageReq) returns (SmppMessageResp) {}
+    rpc SendMail (SmtpMessageReq) returns (SmtpMessageResp) {}
+}
